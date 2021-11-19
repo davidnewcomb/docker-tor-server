@@ -5,6 +5,9 @@ DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.
 # DROP DATABASE test;
 # DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';
 
+GRANT ALL PRIVILEGES ON heros.* TO 'user_hero'@'localhost'
+IDENTIFIED BY 'user_hero';
+
 FLUSH PRIVILEGES;
 
 create database heros;

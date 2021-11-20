@@ -1,8 +1,6 @@
 FROM ubuntu:latest
 
-RUN apt-get update
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	mariadb-server \
 	mariadb-client \
 	apache2 \
@@ -10,22 +8,22 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	php \
 	php-mysql \
 	libapache2-mod-php \
-	php-cli
-
-#RUN apt-get clean 
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+	php-cli \
+	php-curl \
 	tor \
 	curl
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+	inetutils-ping \
+	inetutils-telnet
+
 RUN mkdir /var/lib/tor/onion_service
-# && chown debian-tor:debian-tor /var/lib/tor/onion_service
 
 
 COPY dts /dts
 RUN chmod -R +x /dts
-RUN cp /dts/torrc /etc/tor/torrc
-RUN cp /dts/info.php /var/www/html/info.php
+RUN mv /dts/torrific-curl /bin/torrific-curl
+RUN mv /dts/torrc /etc/tor/torrc
 
 EXPOSE 80
 

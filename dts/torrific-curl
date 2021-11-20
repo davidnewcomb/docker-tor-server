@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#
+# https://unix.stackexchange.com/a/591171/38161
+#
+##
+#
+# torrific-curl 'https://ipinfo.io/ip'
+#
+### Or with output file...
+#
+# torrific-curl\
+#  'https://ipinfo.io/ip'\
+#  "/tmp/torrific-ip_$(date +'%Y-%m_%d-%T').txt"
+#
+##
+
+_address="${1:?No address supplied}"
+_location="${2}"
+_socks5_port='9050'
+
+_cmd=('curl' '--socks5' "localhost:${_socks5_port}" '--socks5-hostname' "localhost:${_socks5_port}" '-s' "${_address}")
+
+((${#_location})) && {
+  ${_cmd[@]} -o "${_location}"
+} || {
+  ${_cmd[@]}
+}
+

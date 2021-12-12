@@ -12,6 +12,11 @@ then
 	DETACH=""
 fi
 
+if [ -z "$HTML_DIR" ]
+then
+	HTML_DIR="$PWD/fs/html"
+fi
+
 IMAGE_ID=$( docker run \
 		$DETACH \
 		--env="USER_NAME=$(whoami)" \
@@ -21,7 +26,7 @@ IMAGE_ID=$( docker run \
 		-p 127.0.0.1:9001:80 \
 		-v $HOME/tmp:/tmp \
 		-v $PWD/fs/onion_service:/var/lib/tor/onion_service \
-		-v $PWD/fs/html:/var/www/html \
+		-v $HTML_DIR:/var/www/html \
 		davidnewcomb/docker-tor-server )
 echo $IMAGE_ID > IMAGE_ID
 echo "IMAGE_ID=$IMAGE_ID"

@@ -7,7 +7,13 @@ then
 	exit 1
 fi
 H=$(cat $HOSTNAME_FILE)
+CID=$(docker ps | grep "davidnewcomb/docker-tor-server" | grep -v CONTAINER | sed 's/ .*//')
+if [ "$CID" = "" ]
+then
+	CID="No"
+fi
 
 echo "Onion hostname : $H"
 echo "Url            : http://$H"
+echo "Running        : $CID"
 

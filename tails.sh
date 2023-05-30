@@ -6,6 +6,12 @@ then
 	exit 1
 fi
 
+if [ "$1" = "" ]
+then
+	echo "usage: tails.sh [-a] [-e] [-t]"
+	exit 1
+fi
+
 FILES=()
 while [ "$1" != "" ]
 do
@@ -16,8 +22,11 @@ do
 		-e)
 			FILES+=('/var/log/apache2/error.log')
 			;;
+		-t)
+			FILES+=('/var/log/tor/notices.log')
+			;;
 		*)
-			echo "Bad option '$1', -e|-o"
+			echo "Bad option '$1', -e|-a"
 			exit 1
 			;;
 	esac

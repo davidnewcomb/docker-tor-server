@@ -19,6 +19,7 @@ fi
 
 IMAGE_ID=$( docker run \
 		$DETACH \
+		--rm \
 		--env="USER_NAME=$(whoami)" \
 		--env="USER_UID=$(id -u)" \
 		--env="USER_GID=$(id -g)" \

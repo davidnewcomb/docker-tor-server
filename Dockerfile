@@ -17,7 +17,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	inetutils-ping \
 	inetutils-telnet
 
-RUN mkdir /var/lib/tor/onion_service
+# First run
+# RUN mkdir /run/tor
+# RUN mkdir /var/lib/tor/onion_service
+
+COPY fs/onion_service /var/lib/tor/onion_service
+RUN chown -R debian-tor:debian-tor /var/lib/tor/onion_service
+RUN chmod 700 /var/lib/tor/onion_service
 
 
 COPY dts /dts
